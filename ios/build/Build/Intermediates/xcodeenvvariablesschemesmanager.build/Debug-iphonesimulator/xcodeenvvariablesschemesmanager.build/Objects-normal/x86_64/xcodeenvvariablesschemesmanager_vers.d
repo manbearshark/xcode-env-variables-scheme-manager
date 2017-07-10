@@ -1,0 +1,2 @@
+dependencies: \
+  /Users/igorkrtolica/Development/xcodeenvvariablesschemesmanager/ios/build/Build/Intermediates/xcodeenvvariablesschemesmanager.build/Debug-iphonesimulator/xcodeenvvariablesschemesmanager.build/DerivedSources/xcodeenvvariablesschemesmanager_vers.c

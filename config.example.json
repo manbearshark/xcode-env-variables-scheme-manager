@@ -1,0 +1,20 @@
+//
+// Configuration file for your app.  Only an example file should be checked into
+// source code control.  Do not check in files with sensitive information like
+// API keys!
+//
+
+{
+  "local": {
+    "apiKey": "LOCAL_API_KEY",
+    "appRootURL": "LOCAL_ROOT_URL"
+  },
+  "staging": {
+    "apiKey": "STAGING_API_KEY",
+    "appRootURL": "STAGING_ROOT_URL"
+   },
+  "production": {
+    "apiKey": "PROD_API_KEY",
+    "appRootURL": "PROD_ROOT_URL"
+  }
+}

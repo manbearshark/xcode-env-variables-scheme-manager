@@ -18,11 +18,39 @@ Note that the config.example.json file is intended to provide a guide for the sh
 
 3. Create a `config.example.json` file in your project src (it is in the root dir in this project).  This will contain a configuration object with entries for each of your build configuration names in Xcode.  For example, `staging`, `production`, etc.
 
-4. Create the build configurations you will want in your Xcode project.  This example adds a `Staging` and `Beta` build configuration as examples.
+```
+{
+  "local": {
+    "apiKey": "LOCAL_API_KEY",
+    "appRootURL": "LOCAL_ROOT_URL"
+  },
+  "staging": {
+    "apiKey": "STAGING_API_KEY",
+    "appRootURL": "STAGING_ROOT_URL"
+   },
+  "production": {
+    "apiKey": "PROD_API_KEY",
+    "appRootURL": "PROD_ROOT_URL"
+  }
+}
+```
+
+4. Create the build configurations you will want in your Xcode project.  This project adds a `Staging` and `Beta` build configuration as examples.
+
+![image](https://user-images.githubusercontent.com/1186878/28042568-b67609f8-6582-11e7-8c51-44c04d011566.gif)
 
 5. Add a xcodeSchemes section to your package.json file.  This is needed to tell the react-native-schemes-manager which configuration to copy to the new configurations you just created in step 4.
-
+```
+"xcodeSchemes": {
+    "Debug": ["Staging", "Local"],
+    "Release": ["Beta"],
+    "projectDirectory": "ios"
+},
+```
 6. Add a postinstall task to the package.json that invokes `react-native-schemes-manager all`.  This will perform the update to your xcode projects every time you install with npm or yarn.  This will need to run each time you change your configuration.
+```
+"postinstall": "react-native-schemes-manager all"
+```
 
 7. The example project contains a react-native native module (see `RNConfig.m` and `appConfig.js`) that looks for the `BuildEnvironment` user-defined setting in Info.plist.  This setting is in turn set based the value of `BUILD_ENV` user-defined setting in your xcode project.  `BUILD_ENV` should contain one of the `staging`, `Beta`, etc. values from the build configurations you defined in step 4.  Once your project is built and packaged, the code in `appConfig.js` will look up the BuildEnvironment value from `Info.plist` and then look up the appropriate values from `config.example.json`.
 

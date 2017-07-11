@@ -54,6 +54,39 @@ Note that the config.example.json file is intended to provide a guide for the sh
 
 7. The example project contains a react-native native module (see `RNConfig.m` and `appConfig.js`) that looks for the `BuildEnvironment` user-defined setting in Info.plist.  This setting is in turn set based the value of `BUILD_ENV` user-defined setting in your xcode project.  `BUILD_ENV` should contain one of the `staging`, `Beta`, etc. values from the build configurations you defined in step 4.  Once your project is built and packaged, the code in `appConfig.js` will look up the BuildEnvironment value from `Info.plist` and then look up the appropriate values from `config.example.json`.
 
+```
+import EnvConfig from './config.example.json';
+
+const NATIVE_ENV = lowerCase(RNConfig.buildEnvironment);
+```
+
+Gives you the build environment from Info.plist.
+
+```
+function getAppServerRootURL() {
+  return NATIVE_ENV === undefined ? undefined : EnvConfig[NATIVE_ENV].appRootURL;
+}
+```
+
+Then you can look it up based on that in the JSON config file.
+
+```
+{
+  "local": {
+    "apiKey": "LOCAL_API_KEY",
+    "appRootURL": "LOCAL_ROOT_URL"
+  },
+  "staging": {
+    "apiKey": "STAGING_API_KEY",
+    "appRootURL": "STAGING_ROOT_URL"
+   },
+  "production": {
+    "apiKey": "PROD_API_KEY",
+    "appRootURL": "PROD_ROOT_URL"
+  }
+}
+```
+
 If you want to explore some alternative solutions to this problem check out these links:
 
 [Multunus](http://www.multunus.com/blog/2016/06/automated-environment-management-react-native-ios/)
